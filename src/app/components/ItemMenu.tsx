@@ -86,7 +86,6 @@ export function ItemMenu(props: ProductProps) {
                         <button onClick={handleAddToCart} className="hover:scale-105 hover:text-red-600 duration-200"><AiOutlineShoppingCart size={26}/></button>
                     </div>
                 </div>
-                <p className="py-3 text-gray-500">{props.description}</p>
             </div>
         </div>
     );

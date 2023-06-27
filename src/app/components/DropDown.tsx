@@ -1,31 +1,34 @@
-'use client'
-import { useState } from 'react';
+"use client";
+import { useState } from "react";
 import CSS from "csstype";
-import { BsPersonCircle } from 'react-icons/bs'
-import { IoMdArrowDropdown } from 'react-icons/io'
+import { BsPersonCircle } from "react-icons/bs";
+import { IoMdArrowDropdown } from "react-icons/io";
+import { useAuth } from "hooks/useAuth";
+import Link from "next/link";
 
 interface link {
-    label: string,
-    url: string
+  label: string;
+  url: string;
 }
 
 interface dropDownProps {
-    buttonLabel: string,
-    links: link[],
-    size: number
+  buttonLabel: string;
+  links: link[];
+  size: number;
 }
 
-export function Dropdown ({ buttonLabel, links, size }:dropDownProps ) {
-
+export function Dropdown({ buttonLabel, links, size }: dropDownProps) {
   const style: CSS.Properties = {
     fontSize: `${size}px`,
   };
 
-    const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
-    const toggleDropdown = () => {
-        setIsOpen(!isOpen);
-    };
+  const { user } = useAuth();
+
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
+  };
 
   return (
     <div className="relative">
@@ -34,16 +37,24 @@ export function Dropdown ({ buttonLabel, links, size }:dropDownProps ) {
         className="inline-flex items-center justify-center font-medium text-black 
         hover:opacity-80 duration-300 uppercase"
         style={style}
-        onClick={toggleDropdown}>
-        <BsPersonCircle color='black'/>
-        <IoMdArrowDropdown color='black' className='text-xl'/>
+        onClick={toggleDropdown}
+      >
+        <BsPersonCircle color="black" />
+        <IoMdArrowDropdown color="black" className="text-xl" />
       </button>
       {isOpen && (
         <div className="absolute right-3 w-40 origin-top-right">
-          <ul className='text-center'>
+          <ul className="text-center">
             {links.map((link) => (
-              <li key={link.label} className="text-base bg-white px-14 py-4 w-48 hover:bg-gray-100 uppercase border border-black border-solid">
-                <a href={link.url}>{link.label}</a>
+              <li
+                key={link.label}
+                className="text-base bg-white px-14 py-4 w-48 hover:bg-gray-100 uppercase border border-black border-solid"
+              >
+                {link.label == "Meus Dados" ? (
+                  <Link href={link.url}>{link.label}</Link>
+                ) : (
+                  <a href={link.url}>{link.label}</a>
+                )}
               </li>
             ))}
           </ul>
@@ -51,4 +62,4 @@ export function Dropdown ({ buttonLabel, links, size }:dropDownProps ) {
       )}
     </div>
   );
-};
+}

@@ -20,6 +20,13 @@ const schema = Yup.object().shape({
   price: Yup.string().required("Campo obrigatório!"),
 });
 
+// import BarcaSushi  from "../../../public/images/barca sushi.jfif";
+import Coquetel from "../../../public/images/coquetel.jpg";
+import Lamen from "../../../public/images/lamen.jpeg";
+import Nigiri from "../../../public/images/nigiri.jpg";
+import Suco from "../../../public/images/suco.jpg";
+
+
 export default function Cardapio() {
   const [activeItem, setActiveItem] = useState("principal");
 
@@ -61,6 +68,8 @@ export default function Cardapio() {
   const styleButtonActive = "text-black bg-white border border-black";
 
   const styleButtonNotActive = "text-white bg-black";
+
+  function selectImage(name) {}
 
   return (
     <section>
@@ -106,7 +115,7 @@ export default function Cardapio() {
         >
           COMBOS
         </button>
-        {user?.name == "adm" && (
+        {user?.name == "admin" && (
           <Dialog.Root open={open}>
             <Dialog.Trigger asChild>
               <button
@@ -192,25 +201,28 @@ export default function Cardapio() {
         className="w-full py-8 px-8 lg:px-32 md:grid md:grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-4 items-center 
       justify-center lg:flex lg:flex-wrap"
       >
+        <ItemMenu
+          price={19.99}
+          name="Sushi 1"
+          image={exemplo}
+          description="Sushizinho muito saboroso"
+          id={1}
+        />
+        <ItemMenu
+          price={19.99}
+          name="Sushi 2"
+          image={exemplo}
+          description="Sushizinho muito saboroso"
+          id={2}
+        />
+        <ItemMenu
+          price={19.99}
+          name="Sushi 3"
+          image={exemplo}
+          description="Sushizinho muito saboroso"
+          id={3}
+        />
         {/* <ItemMenu
-          price={19.99}
-          name="Sushi"
-          image={exemplo}
-          description="Sushizinho muito saboroso"
-        />
-        <ItemMenu
-          price={19.99}
-          name="Sushi"
-          image={exemplo}
-          description="Sushizinho muito saboroso"
-        />
-        <ItemMenu
-          price={19.99}
-          name="Sushi"
-          image={exemplo}
-          description="Sushizinho muito saboroso"
-        />
-        <ItemMenu
           price={19.99}
           name="Sushi"
           image={exemplo}

@@ -1,4 +1,5 @@
 "use client";
+import axios from "axios";
 import { useAuth } from "hooks/useAuth";
 import { useEffect, useRef } from "react";
 
@@ -32,13 +33,42 @@ export default function Perfil() {
       phone,
       password,
     };
+
+    console.log("OBJETO NOVO EDITADO =>", updateUserObject);
+
     const token = localStorage.getItem("jwtToken");
-    api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-    const res = await api.put(
-      `/user/${user.id}`,
-      JSON.stringify(updateUserObject)
-    );
-    console.log(res);
+
+    console.log(user.id);
+
+    /* fetch(
+      `https://back4food-oxcrjgzy5-lorenzocoracini.vercel.app/user/${user.id}`,
+      {
+        method: "PUT",
+        body: updateUserObject,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => console.log("E OS GURI", data)); */
+    try {
+      const res = await api.put(
+        `/user/${user.id}`,
+        JSON.stringify(updateUserObject),
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log(res.data);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   useEffect(() => {

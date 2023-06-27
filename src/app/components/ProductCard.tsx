@@ -10,6 +10,17 @@ type Props = {
 };
 
 export function ProductCard({ produto }: Props) {
+
+  const { cartItems, changeProductQuantity } = useCart();
+
+  function handleDecreaseQuantity () {
+    changeProductQuantity(produto, false)
+  }
+
+  function handleaddQuantity () {
+    changeProductQuantity(produto, true)
+  }
+
   return (
     <div className="bg-opacity-30 flex flex-col justify-center items-center py-2">
       <div className="flex flex-col justify-center items-center lg:flex-row lg:justify-center px-2 lg:px-0">
@@ -19,9 +30,9 @@ export function ProductCard({ produto }: Props) {
         <div className="w-64 lg:w-full flex flex-col lg:flex-row justify-start lg:justify-between lg:gap-5 mt-1 pl-1 lg:mt-4">
           <h1 className="font-bold lg:text-sm text-md lg:max-w-[50px] lg:pl-3">{produto.name}</h1>
           <div className="flex items-center">
-            <button type="button" onClick={() => console.log('clicar')}><BiMinus /></button>
+            <button type="button" onClick={handleDecreaseQuantity}><BiMinus /></button>
             <p className="text-sm p-2">{produto.quantity}</p>
-            <button type="button" onClick={() => console.log('clicar')}><BsPlusLg /></button>
+            <button type="button" onClick={handleaddQuantity}><BsPlusLg /></button>
           </div>
           <div className="pl-1">
             <p className="text-sm text-end font-bold lg:w-16">

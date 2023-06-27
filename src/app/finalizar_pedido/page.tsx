@@ -12,6 +12,7 @@ import { ProductCard } from "../components/ProductCard";
 import { LuAlertOctagon } from "react-icons/lu";
 import { useCart } from "hooks/useCart";
 import { useRouter } from "next/navigation";
+import { use, useEffect, useState } from "react";
 
 const schemaPedido = Yup.object().shape({
   rua: Yup.string().required("Informe sua Rua"),
@@ -25,6 +26,15 @@ const schemaPedido = Yup.object().shape({
 
 export default function IntroductionSection() {
   const { cartItems } = useCart();
+
+  const [totalPrice, setTotalPrice] = useState(0);
+
+  useEffect(() => {
+    setTotalPrice(0);
+    cartItems.forEach((item) => {
+      setTotalPrice((prevTotalPrice) => prevTotalPrice + item.quantity * item.price);
+    });
+  }, [cartItems]);
 
   const route = useRouter();
 
@@ -211,9 +221,9 @@ export default function IntroductionSection() {
               <hr className="border-gray-300" />
               <div className="w-full p-4">
                 <div className="text-end">
-                  <h3 className="text-sm">Total dos itens - R$ 65,80</h3>
-                  <p className="text-sm py-2">Entrega - R$ 10,99</p>
-                  <p className="font-bold text-lg">Total - R$ 76,79</p>
+                  <h3 className="text-sm">Total dos itens - R$ {totalPrice.toFixed(2)}</h3>
+                  <p className="text-sm py-2">Entrega - Grátis</p>
+                  <p className="font-bold text-lg">Total - R$ {totalPrice.toFixed(2)}</p>
                 </div>
                 <div className="flex justify-center items-center px-2">
                   <button

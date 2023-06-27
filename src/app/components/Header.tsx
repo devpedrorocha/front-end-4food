@@ -21,7 +21,6 @@ export function Header() {
 
   const { user } = useAuth();
 
-
   const dropDownLinks = [
     { label: "Meus Dados", url: "/perfil" },
     { label: "Sair da conta", url: "/" },
@@ -71,7 +70,7 @@ export function Header() {
       </ul>
 
       <div className="flex justify-center items-center gap-5">
-          {user?.name && (<p>Olá, {user.name}</p>)}
+        {user?.name && <p>Olá, {user.name}</p>}
 
         <Link href="/finalizar_pedido" className="block py-4">
           <button className="text-2xl hover:opacity-60 hover:scale-95 duration-300">
@@ -107,7 +106,6 @@ export function Header() {
             </Button>
           </Link>
         )}
-
       </div>
       {menuTab && (
         <ul
@@ -125,7 +123,7 @@ export function Header() {
               </Link>
             </li>
           ))}
-          {!user && (
+          {!user.id && (
             <li>
               <Link href="/login" className="block px-3 py-4">
                 <Button onClick={undefined} style={undefined}>

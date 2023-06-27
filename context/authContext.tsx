@@ -34,7 +34,7 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
 
   function signUp(data: any) {
     try {
-      fetch("https://back4food-1ifogmmqz-lorenzocoracini.vercel.app/user", {
+      fetch("https://back4food-oxcrjgzy5-lorenzocoracini.vercel.app/user", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -61,7 +61,7 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
   async function signIn(data: any) {
     try {
       const res = await axios.post(
-        "https://back4food-1ifogmmqz-lorenzocoracini.vercel.app/login",
+        "https://back4food-oxcrjgzy5-lorenzocoracini.vercel.app/login",
         JSON.stringify(data),
         {
           headers: {
@@ -90,7 +90,7 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
     const token = localStorage.getItem("jwtToken");
 
     if (token) {
-      fetch("https://back4food-1ifogmmqz-lorenzocoracini.vercel.app/profile", {
+      fetch("https://back4food-oxcrjgzy5-lorenzocoracini.vercel.app/profile", {
         headers: {
           Authorization: `Bearer ${token}`,
         },

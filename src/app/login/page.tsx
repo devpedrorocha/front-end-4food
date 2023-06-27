@@ -37,6 +37,7 @@ export default function Login() {
       if(res.status == 200){
         setUser(res.data.user);
         localStorage.setItem("jwtToken", res.data.token);
+        console.log(res.data.token)
         localStorage.setItem("userProfile", JSON.stringify(res.data.user))
         router.push('/')
       }

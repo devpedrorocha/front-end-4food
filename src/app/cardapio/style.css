@@ -15,7 +15,7 @@ fieldset {
   inset: 0;
   opacity: 0.6;
   animation: overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
-  z-index: 999;
+  z-index: 99;
 }
 
 .DialogContent {
@@ -30,7 +30,7 @@ fieldset {
   max-width: 450px;
   max-height: 85vh;
   padding: 25px;
-  z-index: 999;
+  z-index: 99;
   animation: contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 .DialogContent:focus {

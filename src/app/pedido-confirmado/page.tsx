@@ -18,8 +18,8 @@ export default function PedidoConfirmado() {
                 <MdLocationOn className="lg:text-2xl text-xl" />
               </div>
               <div>
-                <p className="lg:text-base text-sm">Entregue em Rua Felipe Domingues Petry, 600</p>
-                <p className="lg:text-base text-sm">Praia Comprida-SC</p>
+                <p className="lg:text-base text-sm">Rua de Exemplo</p>
+                <p className="lg:text-base text-sm">Bairro Exemplo</p>
               </div>
             </li>
             <li className="flex items-center gap-3">

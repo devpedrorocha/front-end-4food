@@ -14,6 +14,17 @@ import { useCart } from "hooks/useCart";
 import { useRouter } from "next/navigation";
 import { use, useEffect, useState } from "react";
 
+import Coquetel from "../../../public/images/coquetel.jpg";
+import Ramen from "../../../public/images/ramen.jpg";
+import Nigiri from "../../../public/images/nigiri.jpg";
+import Suco from "../../../public/images/suco.jpg";
+import Sashimi from "@images/sashimi.jpg"
+import SushiDeSalmao from "@images/sushi salmao.jpg"
+import ComboSushi from "@images/combo 2.png"
+import SushiComCreemeCheese from '@images/sushiexemplo.jpg'
+import Temaki from '@images/temaki.jpg'
+import Hot from '@images/sushi a milanesa.jpg'
+
 const schemaPedido = Yup.object().shape({
   rua: Yup.string().required("Informe sua Rua"),
   bairro: Yup.string().required("Informe seu Bairro"),
@@ -28,6 +39,8 @@ export default function IntroductionSection() {
   const { cartItems } = useCart();
 
   const [totalPrice, setTotalPrice] = useState(0);
+
+  
 
   useEffect(() => {
     setTotalPrice(0);

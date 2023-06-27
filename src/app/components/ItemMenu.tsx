@@ -7,13 +7,50 @@ export interface ProductProps {
     image: StaticImageData;
     name: string;
     price: number;
-    description: string;
     id: number;
 }
+
+import Coquetel from "../../../public/images/coquetel.jpg";
+import Ramen from "../../../public/images/ramen.jpg";
+import Nigiri from "../../../public/images/nigiri.jpg";
+import Suco from "../../../public/images/suco.jpg";
+import Sashimi from "@images/sashimi.jpg"
+import SushiDeSalmao from "@images/sushi salmao.jpg"
+import ComboSushi from "@images/combo 2.png"
+import SushiComCreemeCheese from '@images/sushiexemplo.jpg'
+import Temaki from '@images/temaki.jpg'
+import Hot from '@images/sushi a milanesa.jpg'
 
 export function ItemMenu(props: ProductProps) {
 
     const [quantity, setQuantity] = useState(1)
+
+
+    function selectImagePerName(name:string){
+        switch (name) {
+            case 'Hot':
+              return Hot
+            case 'Temaki':
+              return Temaki
+            case 'Ramen':
+              return Ramen
+            case 'Coquetel':
+              return Coquetel
+            case 'Suco':
+              return Suco
+            case 'Nigiri':
+              return Nigiri
+            case 'Combo Sushi':
+              return ComboSushi
+            case 'Sushi de Salmão':
+              return SushiDeSalmao
+            case 'Sashimi':
+              return Sashimi
+            default:
+                return SushiComCreemeCheese
+        }
+    }
+
 
     function handleIncrease () {
         setQuantity(state => state + 1)
@@ -30,7 +67,6 @@ export function ItemMenu(props: ProductProps) {
             ...props,
             quantity
         }
-        console.log(typeof addProductToCart)
         addProductToCart(productToAdd)
     }
 
@@ -38,7 +74,7 @@ export function ItemMenu(props: ProductProps) {
         <div className="max-w-xs lg:hover:-translate-y-2 lg:duration-300">
             <div className="relative overflow-hidden">
                 <p className="text-black absolute bottom-5 right-5 py-1 px-3 bg-white font-bold z-10">R$ {props.price}</p>
-                <Image src={props.image} alt={props.name} className="lg:hover:scale-105 lg:duration-200"/>
+                <Image src={selectImagePerName(props.name)} alt={props.name} className="lg:hover:scale-105 lg:duration-200"/>
             </div>
             <div className="divide-y-3 pt-1">
                 <div className="flex justify-between items-center">

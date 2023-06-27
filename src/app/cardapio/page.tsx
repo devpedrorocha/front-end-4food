@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { useAuth } from "hooks/useAuth";
 import { useForm } from "react-hook-form";
@@ -20,15 +20,11 @@ const schema = Yup.object().shape({
   price: Yup.string().required("Campo obrigatório!"),
 });
 
-// import BarcaSushi  from "../../../public/images/barca sushi.jfif";
-import Coquetel from "../../../public/images/coquetel.jpg";
-import Lamen from "../../../public/images/lamen.jpeg";
-import Nigiri from "../../../public/images/nigiri.jpg";
-import Suco from "../../../public/images/suco.jpg";
-
 
 export default function Cardapio() {
   const [activeItem, setActiveItem] = useState("principal");
+
+  const [produtos, setProdutos] = useState([]);
 
   const handleClick = (item: string) => {
     setActiveItem(item);
@@ -45,23 +41,15 @@ export default function Cardapio() {
     },
   });
 
-  function getProdutosECombos() {}
 
-  async function createProdutoECombo(data: any) {
-    console.log(data);
-    console.log(JSON.stringify(data));
 
-    try {
-      const res = await api.post("/product", JSON.stringify(data), {
-        headers: { "Content-Type": "application/json" },
-      });
-      console.log(res);
-    } catch (error) {
-      alert(error);
-    }
+  async function handleGetProdutos() {
+
+    const token = localStorage.getItem('jwtToken');
+
+    const res = await axios.get('https://back4food-8ppvpqs7e-lorenzocoracini.vercel.app/products', {headers: { "Authorization": `Bearer ${token}`}})
+    setProdutos(res.data)
   }
-
-  function deleteProdutoECombo() {}
 
   const [open, setOpen] = useState(false);
 
@@ -69,7 +57,21 @@ export default function Cardapio() {
 
   const styleButtonNotActive = "text-white bg-black";
 
-  // function selectImage(name) {}
+  async function createProdutoECombo(data: any) {
+    try {
+      const res = await api.post("/product", JSON.stringify(data), {
+        headers: { "Content-Type": "application/json" },
+      });
+     handleGetProdutos()
+    } catch (error) {
+      alert(error);
+    }
+  }
+  
+
+  useEffect(() => {
+    handleGetProdutos()
+  }, [])
 
   return (
     <section>
@@ -79,7 +81,7 @@ export default function Cardapio() {
       </div>
 
       <div className="flex justify-center flex-wrap gap-2 my-3">
-        <button
+        {/* <button
           className={`px-14 py-4 hover:opacity-80 hover:-translate-y-1 
         duration-300 text-xl ${
           activeItem === "principal" ? styleButtonActive : styleButtonNotActive
@@ -114,12 +116,12 @@ export default function Cardapio() {
           onClick={() => handleClick("combos")}
         >
           COMBOS
-        </button>
+        </button> */}
         {user?.name == "admin" && (
           <Dialog.Root open={open}>
             <Dialog.Trigger asChild>
               <button
-                className={`ml-12 px-6 hover:opacity-80 hover:-translate-y-1 
+                className={`ml-12 px-8 py-6 hover:opacity-80 hover:-translate-y-1 
             duration-300 text-md font-bold text-white bg-black`}
                 onClick={() => setOpen(true)}
               >
@@ -201,69 +203,19 @@ export default function Cardapio() {
         className="w-full py-8 px-8 lg:px-32 md:grid md:grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-4 items-center 
       justify-center lg:flex lg:flex-wrap"
       >
-        <ItemMenu
-          price={19.99}
-          name="Sushi 1"
-          image={exemplo}
-          description="Sushizinho muito saboroso"
-          id={1}
-        />
-        <ItemMenu
-          price={19.99}
-          name="Sushi 2"
-          image={exemplo}
-          description="Sushizinho muito saboroso"
-          id={2}
-        />
-        <ItemMenu
-          price={19.99}
-          name="Sushi 3"
-          image={exemplo}
-          description="Sushizinho muito saboroso"
-          id={3}
-        />
-        {/* <ItemMenu
-          price={19.99}
-          name="Sushi"
-          image={exemplo}
-          description="Sushizinho muito saboroso"
-        />
-        <ItemMenu
-          price={19.99}
-          name="Sushi"
-          image={exemplo}
-          description="Sushizinho muito saboroso"
-        />
-        <ItemMenu
-          price={19.99}
-          name="Sushi"
-          image={exemplo}
-          description="Sushizinho muito saboroso"
-        />
-        <ItemMenu
-          price={19.99}
-          name="Sushi"
-          image={exemplo}
-          description="Sushizinho muito saboroso"
-        />
-        <ItemMenu
-          price={19.99}
-          name="Sushi"
-          image={exemplo}
-          description="Sushizinho muito saboroso"
-        />
-        <ItemMenu
-          price={19.99}
-          name="Sushi"
-          image={exemplo}
-          description="Sushizinho muito saboroso"
-        />
-        <ItemMenu
-          price={19.99}
-          name="Sushi"
-          image={exemplo}
-          description="Sushizinho muito saboroso"
-        /> */}
+        {produtos?.length > 0 ? produtos.map((produto) =>{
+          return (
+          <ItemMenu
+            key={produto.id}
+            price={produto.price}
+            name={produto.name}
+            image={exemplo}
+            id={produto.id}
+          />)
+        })  : null}
+        
+      
+        
       </div>
     </section>
   );

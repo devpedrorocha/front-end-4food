@@ -69,7 +69,7 @@ export default function Cardapio() {
 
   const styleButtonNotActive = "text-white bg-black";
 
-  function selectImage(name) {}
+  // function selectImage(name) {}
 
   return (
     <section>
